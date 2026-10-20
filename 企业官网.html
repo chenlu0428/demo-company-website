@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>云启科技 · 数字化解决方案服务商</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230e2a47'/%3E%3Cpath d='M8 22V10l4 8 4-8 4 8 4-8v12' stroke='%234fd1c5' stroke-width='2.4' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://miaoda.feishu.cn">
+<link rel="stylesheet" href="https://miaoda.feishu.cn/fonts/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap">
+<style>
+/* ============ 设计令牌 ============ */
+:root{
+  --ink:#0e2a47;          /* 深海军蓝主色 */
+  --ink-2:#12365c;
+  --accent:#2fd4c3;       /* 强调青绿 */
+  --accent-2:#8fe6dd;
+  --gold:#e8b45a;         /* 点缀暖金，克制使用 */
+  --paper:#f6f8fb;        /* 浅背景 */
+  --line:#e3e9f1;
+  --muted:#5d6b7d;
+  --white:#ffffff;
+  --shadow:0 10px 30px rgba(14,42,71,.08);
+  --shadow-lg:0 18px 44px rgba(14,42,71,.14);
+  --radius:14px;
+  --nav-h:72px;
+  --maxw:1160px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:"Noto Sans SC",-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+  color:var(--ink);
+  background:#fff;
+  line-height:1.7;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer;border:none;background:none}
+.container{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+.hidden-view{display:none}
+.view{animation:viewIn .4s ease both}
+@keyframes viewIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+
+/* 字号体系 */
+h1{font-size:clamp(30px,5vw,48px);font-weight:900;line-height:1.15;letter-spacing:-.5px}
+h2{font-size:clamp(24px,3.4vw,34px);font-weight:900;line-height:1.2;letter-spacing:-.3px}
+h3{font-size:clamp(18px,2.4vw,22px);font-weight:700}
+.eyebrow{font-size:13px;font-weight:700;letter-spacing:.14em;color:var(--accent);text-transform:uppercase}
+.section{position:relative;padding:96px 0}
+.section-head{margin-bottom:56px;max-width:720px}
+.section-head p.lead{margin-top:18px;font-size:17px;color:var(--muted)}
+.lead-tight{line-height:1.8}
+
+/* ============ 导航 ============ */
+.topnav{
+  position:fixed;top:0;left:0;right:0;height:var(--nav-h);z-index:100;
+  transition:background .3s ease,box-shadow .3s ease,color .3s ease;
+  display:flex;align-items:center;color:#fff;
+}
+.topnav.scrolled{background:rgba(255,255,255,.92);backdrop-filter:blur(10px);box-shadow:0 1px 0 var(--line);color:var(--ink)}
+.topnav-inner{display:flex;align-items:center;justify-content:space-between;width:100%}
+.brand{display:flex;align-items:center;gap:10px;font-weight:900;font-size:19px;letter-spacing:.3px}
+.brand svg{width:30px;height:30px;flex:none}
+.brand em{font-style:normal;color:var(--accent);font-weight:300}
+.nav-links{display:flex;gap:6px;align-items:center}
+.nav-links a{position:relative;padding:8px 14px;font-size:15px;font-weight:500;border-radius:8px;transition:background .2s,color .2s}
+.topnav.scrolled .nav-links a:hover{background:var(--paper)}
+.nav-links a.active{color:var(--accent);font-weight:700}
+.nav-cta{
+  margin-left:14px;padding:9px 20px;border-radius:999px;font-weight:700;font-size:14px;
+  background:linear-gradient(135deg,var(--accent),#2ab8a8);color:#fff;
+  box-shadow:0 6px 16px rgba(47,212,195,.35);transition:transform .2s,box-shadow .2s;
+}
+.nav-cta:hover{transform:translateY(-2px);box-shadow:0 10px 22px rgba(47,212,195,.45)}
+.menu-btn{display:none;width:40px;height:40px;position:relative;z-index:110}
+.menu-btn span{position:absolute;left:10px;right:10px;height:2px;background:currentColor;transition:.3s}
+.menu-btn span:nth-child(1){top:14px}
+.menu-btn span:nth-child(2){top:20px}
+.menu-btn span:nth-child(3){top:26px}
+.menu-btn.open span:nth-child(1){top:20px;transform:rotate(45deg)}
+.menu-btn.open span:nth-child(2){opacity:0}
+.menu-btn.open span:nth-child(3){top:20px;transform:rotate(-45deg)}
+.mobile-menu{display:none;position:fixed;inset:0;background:var(--ink);color:#fff;flex-direction:column;align-items:center;justify-content:center;gap:10px;z-index:105}
+.mobile-menu a{font-size:22px;font-weight:600;padding:10px 20px}
+.mobile-menu a.active{color:var(--accent)}
+
+/* ============ 按钮 ============ */
+.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 26px;border-radius:10px;font-weight:700;font-size:15px;transition:.25s}
+.btn-primary{background:var(--ink);color:#fff;box-shadow:var(--shadow)}
+.btn-primary:hover{background:var(--ink-2);transform:translateY(-2px)}
+.btn-ghost{background:transparent;color:inherit;border:1.5px solid currentColor}
+.btn-ghost:hover{background:rgba(255,255,255,.1)}
+.btn-light{background:#fff;color:var(--ink)}
+.btn-light:hover{transform:translateY(-2px);box-shadow:0 12px 26px rgba(0,0,0,.25)}
+.btn svg{width:16px;height:16px}
+
+/* ============ Hero ============ */
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;color:#fff;overflow:hidden;
+  background:
+    radial-gradient(900px 480px at 82% 18%,rgba(47,212,195,.22),transparent 60%),
+    radial-gradient(700px 420px at 12% 88%,rgba(232,180,90,.14),transparent 55%),
+    linear-gradient(150deg,#0a1f38 0%,#0e2a47 48%,#10314f 100%);
+}
+.hero-grid{position:absolute;inset:0;opacity:.5;pointer-events:none;
+  background-image:linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);
+  background-size:52px 52px;
+  mask-image:radial-gradient(120% 100% at 50% 0%,#000 40%,transparent 100%);
+}
+.hero-inner{position:relative;z-index:2;padding:calc(var(--nav-h) + 40px) 0 80px;width:100%}
+.hero-grid-main{display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:center}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;padding:7px 16px;border-radius:999px;
+  border:1px solid rgba(47,212,195,.4);background:rgba(47,212,195,.08);font-size:13px;font-weight:600;color:var(--accent-2);margin-bottom:26px}
+.hero-badge svg{width:15px;height:15px}
+.hero h1{margin-bottom:24px;max-width:15em}
+.hero h1 .hl{background:linear-gradient(120deg,#5ce3d5,#8fe6dd 40%,#e8b45a);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p.sub{font-size:clamp(16px,2vw,19px);color:#c3d3e4;max-width:34em;margin-bottom:38px;line-height:1.9}
+.hero-actions{display:flex;gap:16px;flex-wrap:wrap}
+.hero-stats{display:flex;gap:0;margin-top:56px;border-top:1px solid rgba(255,255,255,.14);padding-top:32px}
+.hstat{flex:1;padding:0 18px;border-left:1px solid rgba(255,255,255,.14)}
+.hstat:first-child{border-left:none;padding-left:0}
+.hstat .num{font-size:clamp(26px,3vw,36px);font-weight:900;color:#fff}
+.hstat .num i{font-style:normal;color:var(--accent)}
+.hstat .lab{font-size:13px;color:#8ba2bd;margin-top:4px}
+.hero-art{position:relative;min-height:360px}
+.hero-panel{position:absolute;right:0;top:0;width:100%;max-width:400px;background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.12);border-radius:20px;padding:26px;backdrop-filter:blur(6px);
+  box-shadow:0 30px 60px rgba(0,0,0,.35)}
+.hero-panel .bar{display:flex;gap:6px;margin-bottom:22px}
+.hero-panel .bar i{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.25)}
+.hero-panel .bar i:first-child{background:var(--accent)}
+.hero-panel h4{font-size:15px;color:#dce8f4;margin-bottom:18px}
+.row{display:flex;align-items:center;justify-content:space-between;padding:13px 0;border-bottom:1px solid rgba(255,255,255,.09);font-size:14px}
+.row:last-child{border-bottom:none}
+.row .k{color:#9db4cc}
+.row .v{font-weight:700;color:#fff}
+.row .v.g{color:var(--accent-2)}
+.meter{height:6px;border-radius:99px;background:rgba(255,255,255,.12);overflow:hidden;margin-top:22px}
+.meter b{display:block;height:100%;width:78%;border-radius:99px;background:linear-gradient(90deg,var(--accent),#3f9fd8)}
+.float-card{position:absolute;background:var(--ink-2);border:1px solid rgba(255,255,255,.14);border-radius:14px;padding:14px 18px;font-size:13px;color:#e7f0f8;
+  box-shadow:0 14px 30px rgba(0,0,0,.3);display:flex;align-items:center;gap:12px;animation:float 5s ease-in-out infinite}
+.float-card b{color:var(--accent);font-size:20px}
+.float-card.c1{left:-6px;bottom:20px}
+.float-card.c2{right:0;top:-6px;animation-delay:2.2s}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+
+/* ============ 数据统计 ============ */
+.stats-strip{background:var(--paper);border-bottom:1px solid var(--line)}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;padding:56px 0}
+.stat{text-align:center}
+.stat .num{font-size:clamp(32px,4vw,46px);font-weight:900;color:var(--ink)}
+.stat .num i{font-style:normal;color:var(--accent)}
+.stat .lab{margin-top:6px;color:var(--muted);font-size:15px}
+
+/* ============ 通用卡片网格 ============ */
+.grid{display:grid;gap:24px}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g4{grid-template-columns:repeat(4,1fr)}
+.card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:28px;transition:.25s}
+.card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);border-color:#d5e0ec}
+.icon-wrap{width:52px;height:52px;border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:20px;background:rgba(47,212,195,.12)}
+.icon-wrap svg{width:26px;height:26px;stroke:var(--accent)}
+.card h3{margin-bottom:10px}
+.card p{color:var(--muted);font-size:15px}
+.card .more{display:inline-flex;align-items:center;gap:6px;margin-top:18px;font-weight:700;font-size:14px;color:var(--ink)}
+.card .more svg{width:14px;height:14px;transition:.2s}
+.card:hover .more svg{transform:translateX(4px)}
+
+/* ============ 服务流程（真序列用编号） ============ */
+.process{background:var(--ink);color:#fff;overflow:hidden}
+.process::before{content:"";position:absolute;inset:0;opacity:.5;background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:52px 52px;pointer-events:none}
+.process .eyebrow,.process h2{position:relative}
+.process .section-head p.lead{color:#a9bed4}
+.steps{position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:20px;counter-reset:step}
+.steps::before{content:"";position:absolute;top:26px;left:4%;right:4%;height:1px;background:linear-gradient(90deg,rgba(47,212,195,.5),rgba(255,255,255,.08))}
+.step{position:relative;padding:20px}
+.step .dot{width:52px;height:52px;border-radius:50%;background:var(--ink-2);border:1px solid var(--accent);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:19px;color:var(--accent);position:relative;z-index:2;margin-bottom:18px}
+.step h3{font-size:17px;margin-bottom:8px}
+.step p{font-size:14px;color:#9db4cc}
+
+/* ============ 数字滚动 / 亮点 ============ */
+.feature-split{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+.feature-list{display:flex;flex-direction:column;gap:0}
+.feature-item{display:flex;gap:16px;padding:22px 0;border-top:1px solid var(--line)}
+.feature-item:last-child{border-bottom:1px solid var(--line)}
+.feature-item .idx{font-weight:900;font-size:15px;color:var(--accent);padding-top:4px}
+.feature-item h3{font-size:17px;margin-bottom:6px}
+.feature-item p{color:var(--muted);font-size:14.5px}
+.feature-visual{position:relative;border-radius:20px;overflow:hidden;box-shadow:var(--shadow-lg);aspect-ratio:1.15/1;background:linear-gradient(150deg,#0e2a47,#12365c)}
+
+/* ============ 案例 ============ */
+.case-card{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:#fff;transition:.25s}
+.case-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+.case-cover{position:relative;aspect-ratio:16/10;overflow:hidden}
+.case-cover .shade{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:20px;color:#fff}
+.case-card .body{padding:22px}
+.case-card .body h3{font-size:17px;margin-bottom:8px}
+.case-card .body p{font-size:14px;color:var(--muted)}
+.tag{display:inline-block;padding:4px 12px;border-radius:999px;font-size:12px;font-weight:600;background:rgba(47,212,195,.12);color:#0b8d80;margin-bottom:12px}
+.case-cover .shade .tag{background:rgba(255,255,255,.2);color:#fff}
+
+/* ============ 客户/引用 ============ */
+.quote-strip{background:var(--paper)}
+.quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.quote{padding:30px;background:#fff;border:1px solid var(--line);border-radius:var(--radius)}
+.quote p{font-size:15px;color:var(--ink);font-style:normal;line-height:1.9;margin-bottom:20px}
+.quote .who{display:flex;align-items:center;gap:12px}
+.quote .avatar{width:42px;height:42px;border-radius:50%;background:var(--ink);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px}
+.quote .who b{display:block;font-size:14px}
+.quote .who span{font-size:12.5px;color:var(--muted)}
+
+/* ============ CTA 横幅 ============ */
+.cta-band{position:relative;overflow:hidden;background:linear-gradient(135deg,var(--ink),var(--ink-2));color:#fff;border-radius:24px;padding:64px 48px;margin:96px 0}
+.cta-band::after{content:"";position:absolute;right:-60px;top:-60px;width:280px;height:280px;border-radius:50%;background:radial-gradient(closest-side,rgba(47,212,195,.35),transparent)}
+.cta-inner{position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;gap:32px;flex-wrap:wrap}
+.cta-inner h2{max-width:16em;margin-bottom:14px}
+.cta-inner p{color:#a9bed4;max-width:34em;font-size:16px}
+.cta-inner .btn-light{margin-top:6px}
+
+/* ============ 页脚 ============ */
+footer{background:#08182c;color:#93a9c3;margin-top:96px}
+.footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1.2fr;gap:40px;padding:72px 0 48px}
+.footer-brand .brand{color:#fff;margin-bottom:18px}
+.footer-brand p{font-size:14px;line-height:1.9;max-width:30em}
+.footer-col h4{color:#fff;font-size:15px;margin-bottom:20px;font-weight:700}
+.footer-col a{display:block;padding:6px 0;font-size:14px;transition:.2s}
+.footer-col a:hover{color:var(--accent)}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.08);padding:22px 0;font-size:13px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+
+/* ============ 通用页面样式 ============ */
+.page-hero{background:linear-gradient(150deg,#0a1f38,#0e2a47 55%,#10314f);color:#fff;padding:calc(var(--nav-h) + 70px) 0 70px}
+.page-hero .eyebrow{margin-bottom:16px}
+.page-hero h1{margin-bottom:16px}
+.page-hero p{color:#c3d3e4;max-width:40em}
+.lead-box{font-size:17px;color:var(--muted);line-height:2}
+.two-col{display:grid;grid-template-columns:1.1fr .9fr;gap:64px;align-items:center}
+.vision-cards{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.value-card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:28px}
+.value-card h3{font-size:17px;margin-bottom:10px}
+.value-card p{color:var(--muted);font-size:14.5px}
+
+/* ============ 时间轴（发展历程） ============ */
+.timeline{position:relative;margin-top:8px;padding-left:0;display:grid;grid-template-columns:110px 24px 1fr;gap:0;row-gap:0}
+.tl-row{display:contents}
+.tl-time{padding:26px 0;font-weight:700;color:var(--accent);font-size:15px;text-align:right}
+.tl-axis{position:relative}
+.tl-axis::before{content:"";position:absolute;left:50%;top:0;bottom:0;width:2px;transform:translateX(-50%);background:linear-gradient(var(--accent),#cfe6e2)}
+.tl-dot{position:absolute;left:50%;top:36px;width:14px;height:14px;transform:translateX(-50%);border-radius:50%;background:var(--ink);border:3px solid var(--accent);box-shadow:0 0 0 4px rgba(47,212,195,.18)}
+.tl-body{padding:26px 0 26px 24px;max-width:620px}
+.tl-body h3{font-size:17px;margin-bottom:6px}
+.tl-body p{color:var(--muted);font-size:14.5px}
+
+/* ============ 服务价签 / 合作模式 ============ */
+.plan{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:var(--radius);padding:30px;background:#fff;transition:.25s}
+.plan:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+.plan.featured{border:2px solid var(--accent);position:relative}
+.plan.featured .flag{position:absolute;top:-13px;left:24px;background:var(--accent);color:#063a35;font-weight:700;font-size:12px;padding:4px 14px;border-radius:999px}
+.plan .p-name{font-size:15px;font-weight:700;color:var(--muted)}
+.plan .p-price{margin:14px 0 4px;font-size:clamp(28px,3vw,36px);font-weight:900}
+.plan .p-price small{font-size:14px;color:var(--muted);font-weight:400}
+.plan .p-desc{color:var(--muted);font-size:14px;margin-bottom:20px}
+.plan ul{list-style:none;flex:1;margin-bottom:22px}
+.plan ul li{display:flex;gap:10px;padding:9px 0;font-size:14.5px;color:var(--ink)}
+.plan ul li svg{width:16px;height:16px;flex:none;stroke:var(--accent);margin-top:3px}
+.plan .btn{justify-content:center}
+
+/* ============ 新闻 ============ */
+.news-item{display:grid;grid-template-columns:130px 1fr;gap:28px;padding:30px 0;border-top:1px solid var(--line);transition:.2s}
+.news-item:hover h3{color:var(--accent)}
+.news-item:last-child{border-bottom:1px solid var(--line)}
+.news-date{font-weight:700;color:var(--accent);font-size:15px}
+.news-item h3{font-size:18px;margin-bottom:8px;transition:.2s}
+.news-item p{color:var(--muted);font-size:14.5px;max-width:52em}
+.news-tag{font-size:12px;color:var(--muted);margin-top:10px}
+
+/* ============ 联系表单 ============ */
+.contact-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:64px;align-items:start}
+.contact-info h2{margin-bottom:20px}
+.contact-info p.lead{color:var(--muted);font-size:16px;line-height:1.9;margin-bottom:34px}
+.c-item{display:flex;gap:16px;padding:16px 0;border-top:1px solid var(--line)}
+.c-item:last-child{border-bottom:1px solid var(--line)}
+.c-item .ic{width:44px;height:44px;border-radius:10px;background:rgba(47,212,195,.12);display:flex;align-items:center;justify-content:center;flex:none}
+.c-item .ic svg{width:20px;height:20px;stroke:var(--accent)}
+.c-item b{display:block;font-size:15px;margin-bottom:2px}
+.c-item span{color:var(--muted);font-size:14px}
+.form-card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:36px;box-shadow:var(--shadow)}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.field{display:flex;flex-direction:column}
+.field.full{grid-column:1/-1}
+.field label{font-size:14px;font-weight:600;margin-bottom:8px}
+.field input,.field select,.field textarea{
+  padding:13px 15px;border:1.5px solid var(--line);border-radius:10px;font-size:16px;font-family:inherit;
+  background:#fbfcfe;transition:.2s;color:var(--ink)
+}
+.field textarea{min-height:120px;resize:vertical}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--accent);background:#fff;box-shadow:0 0 0 3px rgba(47,212,195,.15)}
+.field .err{font-size:12.5px;color:#e04a4a;margin-top:6px;display:none}
+.field.invalid input,.field.invalid textarea{border-color:#e04a4a}
+.field.invalid .err{display:block}
+.form-note{grid-column:1/-1;font-size:12.5px;color:var(--muted)}
+
+/* ============ 滚动显现（克制使用） ============ */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .6s ease,transform .6s ease}
+.reveal.visible{opacity:1;transform:none}
+
+/* ============ 提示条 ============ */
+.toast{position:fixed;left:50%;bottom:34px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:14px 26px;border-radius:12px;font-size:14.5px;font-weight:600;z-index:200;opacity:0;pointer-events:none;transition:.3s;box-shadow:var(--shadow-lg)}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* ============ 响应式 ============ */
+@media (max-width:960px){
+  .nav-links,.nav-cta{display:none}
+  .menu-btn{display:block}
+  .mobile-menu{display:flex;opacity:0;pointer-events:none;transition:.3s}
+  .mobile-menu.open{opacity:1;pointer-events:auto}
+  .hero-grid-main{grid-template-columns:1fr;gap:48px}
+  .hero-art{min-height:300px;margin-top:10px}
+  .hero-stats{flex-wrap:wrap;gap:20px}
+  .hstat{flex:1 1 40%}
+  .g3,.g4,.quotes{grid-template-columns:repeat(2,1fr)}
+  .steps{grid-template-columns:repeat(2,1fr)}
+  .steps::before{display:none}
+  .feature-split,.two-col,.contact-grid{grid-template-columns:1fr;gap:40px}
+  .stats-grid{grid-template-columns:repeat(2,1fr);gap:40px 20px}
+  .footer-grid{grid-template-columns:1fr 1fr;gap:32px}
+  .vision-cards{grid-template-columns:1fr}
+  .cta-band{padding:44px 28px}
+}
+@media (max-width:560px){
+  .section{padding:64px 0}
+  .g3,.g4,.quotes,.steps{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr}
+  .form-grid{grid-template-columns:1fr}
+  .tl-time{font-size:13px;width:74px}
+  .timeline{grid-template-columns:74px 18px 1fr}
+  .news-item{grid-template-columns:1fr;gap:8px}
+  .hero{padding-bottom:60px}
+  .float-card.c1{left:0;bottom:6px}
+  .float-card.c2{right:0;top:0}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .hero-art *,.float-card{animation:none!important}
+  .reveal{opacity:1;transform:none;transition:none}
+}
+</style>
+</head>
+<body>
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+  <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M3 8l9 6 9-6"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.13.96.36 1.9.7 2.8a2 2 0 0 1-.45 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.45c.9.34 1.84.57 2.8.7A2 2 0 0 1 22 16.9z"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></symbol>
+</svg>
+
+<!-- ============ 导航 ============ -->
+<nav class="topnav" id="topnav">
+  <div class="container topnav-inner">
+    <a href="#/" class="brand">
+      <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect width="32" height="32" rx="8" fill="currentColor"/><path d="M8 22V10l4 8 4-8 4 8 4-8v12" stroke="#08182c" stroke-width="2" fill="none"/></svg>
+      云启<em>科技</em>
+    </a>
+    <div class="nav-links" id="navLinks">
+      <a href="#/" data-nav="home">首页</a>
+      <a href="#/about" data-nav="about">关于我们</a>
+      <a href="#/service" data-nav="service">业务服务</a>
+      <a href="#/case" data-nav="case">案例展示</a>
+      <a href="#/news" data-nav="news">新闻动态</a>
+      <a href="#/contact" data-nav="contact">联系我们</a>
+      <a href="#/contact" class="nav-cta">预约咨询</a>
+    </div>
+    <button class="menu-btn" id="menuBtn" aria-label="菜单"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#/" data-nav="home">首页</a>
+  <a href="#/about" data-nav="about">关于我们</a>
+  <a href="#/service" data-nav="service">业务服务</a>
+  <a href="#/case" data-nav="case">案例展示</a>
+  <a href="#/news" data-nav="news">新闻动态</a>
+  <a href="#/contact" data-nav="contact">联系我们</a>
+</div>
+
+<!-- ============ 视图：首页 ============ -->
+<section id="view-home" class="view">
+  <!-- Hero -->
+  <header class="hero">
+    <div class="hero-grid"></div>
+    <div class="container hero-inner">
+      <div class="hero-grid-main">
+        <div>
+          <span class="hero-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01"/></svg>
+            专注数字化的技术伙伴
+          </span>
+          <h1>让复杂的技术，成为你<span class="hl">看得见的增长</span></h1>
+          <p class="sub">云启科技为企业提供网站建设、业务系统、可视化大屏与小程序 / APP 一站式数字化解决方案。用可交付的成果，替代不可量化的承诺。</p>
+          <div class="hero-actions">
+            <a href="#/contact" class="btn btn-primary">免费获取方案
+              <svg class="icon"><use href="#i-arrow" xlink:href="#i-arrow"/></svg>
+            </a>
+            <a href="#/case" class="btn btn-ghost">查看案例</a>
+          </div>
+          <div class="hero-stats">
+            <div class="hstat"><div class="num"><span data-count="120">0</span><i>+</i></div><div class="lab">交付项目</div></div>
+            <div class="hstat"><div class="num"><span data-count="80">0</span><i>+</i></div><div class="lab">合作企业</div></div>
+            <div class="hstat"><div class="num"><span data-count="6">0</span><i>年</i></div><div class="lab">行业经验</div></div>
+            <div class="hstat"><div class="num"><span data-count="98">0</span><i>%</i></div><div class="lab">客户满意度</div></div>
+          </div>
+        </div>
+        <div class="hero-art" aria-hidden="true">
+          <div class="hero-panel">
+            <div class="bar"><i></i><i></i><i></i></div>
+            <h4>月度服务交付概览</h4>
+            <div class="row"><span class="k">项目交付</span><span class="v">24 <span class="g">↑ 12%</span></span></div>
+            <div class="row"><span class="k">客户新增</span><span class="v">9</span></div>
+            <div class="row"><span class="k">平均交付周期</span><span class="v g">14 天</span></div>
+            <div class="row"><span class="k">需求完成率</span><span class="v">98%</span></div>
+            <div class="meter"><b></b></div>
+          </div>
+          <div class="float-card c1"><b>14</b><span>天完成首版<br>开发交付</span></div>
+          <div class="float-card c2"><b>3轮</b><span>免费修改<br>范围透明</span></div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- 数据统计条 -->
+  <div class="stats-strip">
+    <div class="container stats-grid">
+      <div class="stat"><div class="num"><span data-count="120">0</span><i>+</i></div><div class="lab">累计交付项目</div></div>
+      <div class="stat"><div class="num"><span data-count="80">0</span><i>+</i></div><div class="lab">长期合作客户</div></div>
+      <div class="stat"><div class="num"><span data-count="6">0</span><i>年</i></div><div class="lab">行业深耕</div></div>
+      <div class="stat"><div class="num"><span data-count="98">0</span><i>%</i></div><div class="lab">验收通过率</div></div>
+    </div>
+  </div>
+
+  <!-- 核心业务 -->
+  <section class="section" id="biz">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Core Services</span>
+        <h2>围绕增长的一整套数字化能力</h2>
+        <p class="lead">从品牌门面到业务内里，覆盖企业线上化的关键环节。每一个模块都可独立交付，也可整体集成。</p>
+      </div>
+      <div class="grid g4">
+        <div class="card reveal">
+          <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h7v7H3zM14 3h7v7h-7zM3 14h7v7H3zM14 14h7v7h-7z"/></svg></div>
+          <h3>企业官网</h3>
+          <p>高端品牌官网与营销落地页，响应式适配全终端，塑造可信赖的品牌形象。</p>
+          <a href="#/service" class="more">了解详情 <svg><use href="#i-arrow" xlink:href="#i-arrow"/></svg></a>
+        </div>
+        <div class="card reveal">
+          <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 21h8M12 18v3"/></svg></div>
+          <h3>后台管理系统</h3>
+          <p>权限、表格、流程一体的业务管理平台，让内部运营清晰、高效、可追踪。</p>
+          <a href="#/service" class="more">了解详情 <svg><use href="#i-arrow" xlink:href="#i-arrow"/></svg></a>
+        </div>
+        <div class="card reveal">
+          <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-8M21 20H3"/></svg></div>
+          <h3>可视化大屏</h3>
+          <p>基于 ECharts 的数据大屏，实时图表与指标联动，让数据开口说话。</p>
+          <a href="#/service" class="more">了解详情 <svg><use href="#i-arrow" xlink:href="#i-arrow"/></svg></a>
+        </div>
+        <div class="card reveal">
+          <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg></div>
+          <h3>小程序 / APP</h3>
+          <p>一套代码多端运行，覆盖微信小程序与移动 APP，直达用户的移动触点。</p>
+          <a href="#/service" class="more">了解详情 <svg><use href="#i-arrow" xlink:href="#i-arrow"/></svg></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 服务流程 -->
+  <section class="section process">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">How We Work</span>
+        <h2>清晰、可预期的交付流程</h2>
+        <p class="lead">每一步都有明确的产出与验收点，从需求到上线全程可跟踪，杜绝「边做边加」的范围失控。</p>
+      </div>
+      <div class="steps reveal">
+        <div class="step"><div class="dot">1</div><h3>需求梳理</h3><p>把模糊的想法整理成功能清单，双方确认范围与验收标准。</p></div>
+        <div class="step"><div class="dot">2</div><h3>方案设计</h3><p>输出界面原型与视觉稿，风格、交互先达成一致再动工。</p></div>
+        <div class="step"><div class="dot">3</div><h3>开发交付</h3><p>分阶段开发与验收，按约定范围实现功能，超出部分单独沟通报价。</p></div>
+        <div class="step"><div class="dot">4</div><h3>上线运维</h3><p>部署上线，提供文档与售后支持，让产品长期稳定运行。</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 亮点：为何选择 -->
+  <section class="section">
+    <div class="container feature-split">
+      <div class="feature-list reveal">
+        <div class="feature-item"><span class="idx">01</span><div><h3>交付导向，成果可见</h3><p>关注可运行的交付物，而不是口头承诺。每个阶段都有可验收的产出。</p></div></div>
+        <div class="feature-item"><span class="idx">02</span><div><h3>范围透明，变更可控</h3><p>需求与报价前置锁定，新增功能独立评估，避免预算失控与反复返工。</p></div></div>
+        <div class="feature-item"><span class="idx">03</span><div><h3>组件化工程</h3><p>统一的技术栈与工程规范，代码整洁可维护，便于长期迭代与交接。</p></div></div>
+        <div class="feature-item"><span class="idx">04</span><div><h3>售后陪伴</h3><p>交付不是终点，上线后提供持续的优化与技术支持，共同成长。</p></div></div>
+      </div>
+      <div class="feature-visual reveal" aria-hidden="true"></div>
+    </div>
+  </section>
+
+  <!-- 精选案例 -->
+  <section class="section" style="background:var(--paper)">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Selected Cases</span>
+        <h2>经得起验收的交付案例</h2>
+        <p class="lead">每一个项目都按约定范围如期交付，以下为部分具有代表性的成果。</p>
+      </div>
+      <div class="grid g3" id="homeCases"></div>
+      <div style="text-align:center;margin-top:40px" class="reveal">
+        <a href="#/case" class="btn btn-primary">查看全部案例 <svg class="icon"><use href="#i-arrow" xlink:href="#i-arrow"/></svg></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 客户评价 -->
+  <section class="section quote-strip">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Testimonials</span>
+        <h2>客户怎么说</h2>
+      </div>
+      <div class="quotes reveal">
+        <div class="quote">
+          <p>需求梳理阶段就把功能和报价写清楚，开发过程几乎没有扯皮，如期上线，超预期。</p>
+          <div class="who"><div class="avatar">王</div><div><b>王经理</b><span>某智能制造企业 · 市场部</span></div></div>
+        </div>
+        <div class="quote">
+          <p>官网上线后品牌感提升明显，响应式适配很到位，客户咨询转化率有了实打实的提升。</p>
+          <div class="who"><div class="avatar">刘</div><div><b>刘总</b><span>某贸易公司 · 负责人</span></div></div>
+        </div>
+        <div class="quote">
+          <p>后台管理系统把我们的订单和库存理顺了，权限设置清晰，团队协作效率高了很多。</p>
+          <div class="who"><div class="avatar">陈</div><div><b>陈主管</b><span>某连锁品牌 · 运营部</span></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <div class="container">
+    <section class="cta-band reveal">
+      <div class="cta-inner">
+        <div>
+          <h2>有想法？先来聊清楚需求，再谈合作。</h2>
+          <p>把你的业务场景告诉我们，我们给出明确的功能清单与报价，让每一分投入都可预期。</p>
+        </div>
+        <a href="#/contact" class="btn btn-light">免费获取方案 <svg class="icon"><use href="#i-arrow" xlink:href="#i-arrow"/></svg></a>
+      </div>
+    </section>
+  </div>
+</section>
+
+<!-- ============ 视图：关于我们 ============ -->
+<section id="view-about" class="view hidden-view">
+  <div class="page-hero">
+    <div class="container">
+      <span class="eyebrow">About Us</span>
+      <h1>关于云启科技</h1>
+      <p>一家以「可交付成果」为核心价值观的数字化服务商，专注让技术真正为企业创造可衡量的价值。</p>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container two-col">
+      <div class="reveal">
+        <span class="eyebrow">Who We Are</span>
+        <h2 style="margin:14px 0 22px">从一个小团队，到值得托付的技术伙伴</h2>
+        <p class="lead-box">云启科技成立于 2020 年，是一家专注于企业数字化解决方案的技术团队。我们相信，优秀的技术服务不应该建立在「感觉」之上，而应该建立在清晰的需求、可验收的交付与透明的合作之上。</p>
+        <p class="lead-box" style="margin-top:18px">6 年来，我们服务了 80 余家中小企业与成长型团队，覆盖官网建设、后台系统、可视化大屏与移动端开发。我们坚持小步快跑、及时交付，让每一次合作都有据可依、有果可验。</p>
+      </div>
+      <div class="vision-cards reveal">
+        <div class="value-card"><h3>使命</h3><p>用专业的数字化能力，帮助中小企业以可负担的成本，获得与大企业同级的线上竞争力。</p></div>
+        <div class="value-card"><h3>愿景</h3><p>成为最值得信赖的中小企业技术伙伴，让每笔技术投入都物有所值。</p></div>
+        <div class="value-card"><h3>价值观</h3><p>交付导向、范围透明、持续陪伴。不夸大、不糊弄，做过的都看得见。</p></div>
+        <div class="value-card"><h3>能力</h3><p>覆盖前端到后端的完整工程能力，统一技术栈，代码整洁可交接。</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="background:var(--paper)">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Milestones</span>
+        <h2>发展历程</h2>
+      </div>
+      <div class="timeline reveal">
+        <div class="tl-row">
+          <div class="tl-time">2020</div>
+          <div class="tl-axis"><span class="tl-dot"></span></div>
+          <div class="tl-body"><h3>团队成立</h3><p>以企业官网与小程序为起点，服务首批中小企业客户。</p></div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-time">2021</div>
+          <div class="tl-axis"><span class="tl-dot"></span></div>
+          <div class="tl-body"><h3>进入后台系统领域</h3><p>沉淀权限、表格、流程等 B 端组件能力，交付首个后台管理系统。</p></div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-time">2022</div>
+          <div class="tl-axis"><span class="tl-dot"></span></div>
+          <div class="tl-body"><h3>可视化大屏产品化</h3><p>基于 ECharts 构建大屏方案，服务制造、零售等数据展示场景。</p></div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-time">2023</div>
+          <div class="tl-axis"><span class="tl-dot"></span></div>
+          <div class="tl-body"><h3>多端一体化</h3><p>落地一套代码多端运行的移动方案，覆盖微信小程序与 APP。</p></div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-time">至今</div>
+          <div class="tl-axis"><span class="tl-dot"></span></div>
+          <div class="tl-body"><h3>服务升级</h3><p>累计交付 120+ 项目，构建起覆盖策划、开发、运维的全链路服务。</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+    <section class="cta-band reveal">
+      <div class="cta-inner">
+        <div>
+          <h2>想了解更多？聊聊你的业务。</h2>
+          <p>告诉我们你的场景，我们会明确告知能做到什么、多久交付、多少预算。</p>
+        </div>
+        <a href="#/contact" class="btn btn-light">联系我们 <svg class="icon"><use href="#i-arrow" xlink:href="#i-arrow"/></svg></a>
+      </div>
+    </section>
+  </div>
+</section>
+
+<!-- ============ 视图：业务服务 ============ -->
+<section id="view-service" class="view hidden-view">
+  <div class="page-hero">
+    <div class="container">
+      <span class="eyebrow">Our Services</span>
+      <h1>业务服务</h1>
+      <p>围绕企业线上化的四大核心能力，模块化交付，也可一站式集成。</p>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Capabilities</span>
+        <h2>四大核心能力</h2>
+      </div>
+      <div class="grid g2" style="grid-template-columns:repeat(2,1fr)">
+        <div class="card reveal">
+          <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h7v7H3zM14 3h7v7h-7zM3 14h7v7H3zM14 14h7v7h-7z"/></svg></div>
+          <h3>企业官网与营销落地页</h3>
+          <p>从品牌官网、活动落地页到营销专题页，响应式适配全终端。突出视觉与转化，附带表单校验、交互动效，让品牌可信、让客户可联系。</p>
+        </div>
+        <div class="card reveal">
+          <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 21h8M12 18v3"/></svg></div>
+          <h3>后台管理系统</h3>
+          <p>用户 / 权限、数据表格、流程审批一体的 B 端管理平台。权限清晰、操作高效、可审计，让团队管理井然有序。</p>
+        </div>
+        <div class="card reveal">
+          <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-8M21 20H3"/></svg></div>
+          <h3>数据可视化大屏</h3>
+          <p>ECharts 驱动的数据看板，实时指标、图表联动、大屏自适应。把数据变成一目了然的决策依据。</p>
+        </div>
+        <div class="card reveal">
+          <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg></div>
+          <h3>小程序与移动 APP</h3>
+          <p>一套代码多端运行的移动方案，覆盖微信小程序与安卓 / iOS APP，直达用户移动触点。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="background:var(--paper)">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Cooperation Modes</span>
+        <h2>灵活的合作模式</h2>
+        <p class="lead">不同阶段的业务，匹配不同的合作方式。范围与价格前置透明。</p>
+      </div>
+      <div class="grid g3" id="plans"></div>
+    </div>
+  </section>
+
+  <div class="container">
+    <section class="cta-band reveal">
+      <div class="cta-inner">
+        <div>
+          <h2>不确定选哪种？先沟通再决定。</h2>
+          <p>告诉我们你的目标和预算，我们会推荐最合适的方案，绝不盲目加价。</p>
+        </div>
+        <a href="#/contact" class="btn btn-light">预约沟通 <svg class="icon"><use href="#i-arrow" xlink:href="#i-arrow"/></svg></a>
+      </div>
+    </section>
+  </div>
+</section>
+
+<!-- ============ 视图：案例展示 ============ -->
+<section id="view-case" class="view hidden-view">
+  <div class="page-hero">
+    <div class="container">
+      <span class="eyebrow">Case Studies</span>
+      <h1>案例展示</h1>
+      <p>以下案例均按约定范围如期交付，展示了官网、后台、大屏与移动端的不同能力。</p>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container">
+      <div class="filter-bar reveal" style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:40px" id="caseFilter"></div>
+      <div class="grid g3" id="caseGrid"></div>
+    </div>
+  </section>
+</section>
+
+<!-- ============ 视图：新闻动态 ============ -->
+<section id="view-news" class="view hidden-view">
+  <div class="page-hero">
+    <div class="container">
+      <span class="eyebrow">News & Insights</span>
+      <h1>新闻动态</h1>
+      <p>行业洞察、产品更新与团队动态，记录我们与客户的每一步成长。</p>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container" style="max-width:860px" id="newsList"></div>
+  </section>
+</section>
+
+<!-- ============ 视图：联系我们 ============ -->
+<section id="view-contact" class="view hidden-view">
+  <div class="page-hero">
+    <div class="container">
+      <span class="eyebrow">Contact Us</span>
+      <h1>联系我们</h1>
+      <p>聊清楚需求，再谈合作。留下你的业务场景，我们会在一个工作日内回复。</p>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container contact-grid">
+      <div class="contact-info reveal">
+        <h2>让合作，从一次清晰的沟通开始</h2>
+        <p class="lead">无论是官网改版、系统搭建，还是数据可视化、小程序上线，先告诉我们你的场景，我们再给出范围、周期与报价。</p>
+        <div class="c-item"><div class="ic"><svg><use href="#i-phone" xlink:href="#i-phone"/></svg></div><div><b>电话</b><span>138-0000-0000（工作日 9:00–18:00）</span></div></div>
+        <div class="c-item"><div class="ic"><svg><use href="#i-mail" xlink:href="#i-mail"/></svg></div><div><b>邮箱</b><span>hello@cloudrise.cn</span></div></div>
+        <div class="c-item"><div class="ic"><svg><use href="#i-pin" xlink:href="#i-pin"/></svg></div><div><b>地址</b><span>江苏省苏州市工业园区</span></div></div>
+      </div>
+
+      <form class="form-card reveal" id="contactForm" novalidate>
+        <div class="form-grid">
+          <div class="field">
+            <label for="f-name">您的称呼 *</label>
+            <input id="f-name" name="name" type="text" placeholder="怎么称呼您">
+            <div class="err">请填写您的称呼</div>
+          </div>
+          <div class="field">
+            <label for="f-phone">联系电话 *</label>
+            <input id="f-phone" name="phone" type="text" placeholder="用于联系您">
+            <div class="err">请填写正确的手机号</div>
+          </div>
+          <div class="field full">
+            <label for="f-type">您的需求 *</label>
+            <select id="f-type" name="type">
+              <option value="">请选择服务类型</option>
+              <option>企业官网 / 落地页</option>
+              <option>后台管理系统</option>
+              <option>可视化大屏</option>
+              <option>小程序 / APP</option>
+              <option>整体数字化方案</option>
+            </select>
+            <div class="err">请选择服务类型</div>
+          </div>
+          <div class="field full">
+            <label for="f-msg">业务描述 *</label>
+            <textarea id="f-msg" name="msg" placeholder="简要描述您的业务场景与期望效果"></textarea>
+            <div class="err">请简要描述您的需求</div>
+          </div>
+          <div class="form-note">* 为必填项。提交即表示同意我们与您联系沟通需求。</div>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:22px">提交需求
+          <svg class="icon"><use href="#i-arrow" xlink:href="#i-arrow"/></svg>
+        </button>
+      </form>
+    </div>
+  </section>
+</section>
+
+<!-- ============ 页脚 ============ -->
+<footer>
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <div class="brand" style="color:#fff">
+        <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect width="32" height="32" rx="8" fill="currentColor"/><path d="M8 22V10l4 8 4-8 4 8 4-8v12" stroke="#08182c" stroke-width="2" fill="none"/></svg>
+        云启<em>科技</em>
+      </div>
+      <p>专注中小企业数字化解决方案，用可交付的成果，替代不可量化的承诺。</p>
+    </div>
+    <div class="footer-col">
+      <h4>快速导航</h4>
+      <a href="#/">首页</a>
+      <a href="#/about">关于我们</a>
+      <a href="#/service">业务服务</a>
+      <a href="#/case">案例展示</a>
+      <a href="#/news">新闻动态</a>
+    </div>
+    <div class="footer-col">
+      <h4>业务服务</h4>
+      <a href="#/service">企业官网</a>
+      <a href="#/service">后台管理系统</a>
+      <a href="#/service">可视化大屏</a>
+      <a href="#/service">小程序 / APP</a>
+    </div>
+    <div class="footer-col">
+      <h4>联系我们</h4>
+      <a href="#/contact">电话：138-0000-0000</a>
+      <a href="#/contact">邮箱：hello@cloudrise.cn</a>
+      <a href="#/contact">地址：江苏省苏州市工业园区</a>
+    </div>
+  </div>
+  <div class="container footer-bottom">
+    <span>© 2026 云启科技 版权所有</span>
+    <span>数字化解决方案服务商</span>
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ============ 数据 ============ */
+var CASES = [
+  {title:"某智能制造企业官网", cat:"官网", desc:"高端品牌官网 + 响应式适配，显著提升品牌形象与咨询转化。", grad:"linear-gradient(150deg,#0e2a47,#16406e)"},
+  {title:"连锁品牌后台管理系统", cat:"后台系统", desc:"订单、库存、权限一体化的 B 端管理平台，团队协作效率大幅提升。", grad:"linear-gradient(150deg,#0b7d72,#2fd4c3)"},
+  {title:"园区能耗数据大屏", cat:"可视化大屏", desc:"ECharts 实时数据看板，能耗指标一目了然，辅助管理决策。", grad:"linear-gradient(150deg,#12365c,#3f9fd8)"},
+  {title:"餐饮小程序点餐系统", cat:"小程序", desc:"微信小程序点餐，一套代码多端运行，覆盖到店与外卖场景。", grad:"linear-gradient(150deg,#8a5a1f,#e8b45a)"},
+  {title:"贸易公司官网改版", cat:"官网", desc:"从旧站到全新视觉的完整改版，上线后客户询盘量明显增长。", grad:"linear-gradient(150deg,#2a3d5c,#0e2a47)"},
+  {title:"教育机构预约系统", cat:"后台系统", desc:"课表、学员、预约一体化管理，支持多角色权限与数据统计。", grad:"linear-gradient(150deg,#0e4a44,#2ab8a8)"}
+];
+var PLANS = [
+  {name:"轻量方案", price:"¥6,000 起", desc:"适合品牌上线与基础展示", featured:false,
+   items:["品牌官网 / 落地页","响应式全终端适配","表单与基础交互","交付文档","上线部署支持"]},
+  {name:"标准方案", price:"¥15,000 起", desc:"适合业务系统与后台管理", featured:true,
+   items:["后台管理系统","角色权限控制","数据表格与搜索","可视化看板","专属技术顾问","售后持续支持"]},
+  {name:"定制方案", price:"面议", desc:"适合复杂业务与多端集成", featured:false,
+   items:["整体数字化方案","多端（网页+小程序）","数据大屏集成","私有化部署","长期运维服务"]}
+];
+var NEWS = [
+  {date:"2026-09", tag:"行业洞察", title:"响应式设计为何仍是企业官网的及格线？",
+   text:"在移动端流量占比过半的今天，官网能否在不同设备上无缝浏览，直接决定了品牌的信任感与转化率。本文聊聊响应式设计的几个关键工程细节。"},
+  {date:"2026-07", tag:"产品更新", title:"云启后台管理框架完成 3.0 升级",
+   text:"我们重构了权限模块与表格组件，开发效率提升约 40%，为更多企业客户提供更快、更稳定的交付体验。"},
+  {date:"2026-05", tag:"案例", title:"某园区能耗大屏上线，数据驱动节能决策",
+   text:"通过实时数据采集与可视化呈现，管理者能直观掌握各区域能耗分布，为节能改造提供了清晰依据。"},
+  {date:"2026-03", tag:"团队动态", title:"交付流程再优化：从 5 个环节压缩到 4 个",
+   text:"我们合并了设计与开发前的确认环节，在保证质量的前提下，进一步缩短了从需求到首版的周期。"},
+  {date:"2026-01", tag:"行业洞察", title:"小成本打造专业形象：中小企业官网避坑指南",
+   text:"预算有限不等于效果打折。从结构规划到视觉打磨，本文总结了几条中小企业也能落地的高性价比做法。"}
+];
+var CASE_FILTERS = ["全部","官网","后台系统","可视化大屏","小程序"];
+
+/* ============ 工具 ============ */
+function $(s){return document.querySelector(s)}
+function toast(msg){
+  var t=$("#toast");t.textContent=msg;t.classList.add("show");
+  clearTimeout(t._tm);t._tm=setTimeout(function(){t.classList.remove("show")},2400);
+}
+
+/* ============ 路由 ============ */
+var routes=["home","about","service","case","news","contact"];
+var current="home";
+function showView(name){
+  current=name;
+  routes.forEach(function(r){
+    var el=$("#view-"+r);
+    el.classList.toggle("hidden-view", r!==name);
+  });
+  document.querySelectorAll("[data-nav]").forEach(function(a){
+    a.classList.toggle("active", a.getAttribute("data-nav")===name);
+  });
+  closeMenu();
+  requestAnimationFrame(function(){window.scrollTo({top:0,behavior:"instant"})});
+  requestAnimationFrame(observeReveals);
+}
+function parseHash(){
+  var h=location.hash.replace("#/","")||"home";
+  if(routes.indexOf(h)<0) h="home";
+  showView(h);
+}
+window.addEventListener("hashchange",parseHash);
+
+/* ============ 导航滚动变色 ============ */
+var topnav=$("#topnav");
+function onScroll(){
+  topnav.classList.toggle("scrolled", window.scrollY>40);
+}
+window.addEventListener("scroll",onScroll,{passive:true});
+
+/* ============ 移动端菜单 ============ */
+var menuBtn=$("#menuBtn"),mobileMenu=$("#mobileMenu");
+function closeMenu(){menuBtn.classList.remove("open");mobileMenu.classList.remove("open")}
+menuBtn.addEventListener("click",function(){
+  menuBtn.classList.toggle("open");mobileMenu.classList.toggle("open");
+});
+document.querySelectorAll(".mobile-menu a").forEach(function(a){
+  a.addEventListener("click",closeMenu);
+});
+
+/* ============ 数字滚动 ============ */
+function animateCount(el){
+  var target=parseInt(el.getAttribute("data-count"),10);
+  var dur=1200,t0=null;
+  function step(t){
+    if(!t0)t0=t;
+    var p=Math.min((t-t0)/dur,1);
+    var ease=1-Math.pow(1-p,3);
+    el.textContent=Math.round(target*ease);
+    if(p<1)requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+
+/* ============ 滚动显现 ============ */
+var io=new IntersectionObserver(function(entries){
+  entries.forEach(function(e){
+    if(e.isIntersecting){
+      e.target.classList.add("visible");
+      e.target.querySelectorAll("[data-count]").forEach(animateCount);
+      io.unobserve(e.target);
+    }
+  });
+},{threshold:.12});
+function observeReveals(){
+  document.querySelectorAll(".reveal:not(.visible)").forEach(function(el){io.observe(el)});
+}
+
+/* ============ 渲染：首页案例 ============ */
+function renderHomeCases(){
+  var box=$("#homeCases");box.innerHTML="";
+  CASES.slice(0,3).forEach(function(c){
+    box.insertAdjacentHTML("beforeend",
+      '<article class="case-card"><div class="case-cover" style="background:'+c.grad+'"><div class="shade"><span class="tag">'+c.cat+'</span></div></div>'+
+      '<div class="body"><h3>'+c.title+'</h3><p>'+c.desc+'</p></div></article>');
+  });
+}
+
+/* ============ 渲染：合作模式 ============ */
+function renderPlans(){
+  var box=$("#plans");box.innerHTML="";
+  PLANS.forEach(function(p){
+    var items=p.items.map(function(i){
+      return '<li><svg class="icon"><use href="#i-check"/></svg>'+i+'</li>';
+    }).join("");
+    box.insertAdjacentHTML("beforeend",
+      '<div class="plan'+(p.featured?" featured":"")+'">'+(p.featured?'<span class="flag">推荐</span>':"")+
+      '<div class="p-name">'+p.name+'</div><div class="p-price">'+p.price+'</div><div class="p-desc">'+p.desc+'</div>'+
+      '<ul>'+items+'</ul><a href="#/contact" class="btn '+(p.featured?"btn-primary":"btn-ghost")+'">获取该方案</a></div>');
+  });
+}
+
+/* ============ 渲染：案例页 ============ */
+function renderCaseGrid(filter){
+  var grid=$("#caseGrid");grid.innerHTML="";
+  var list=filter&&filter!=="全部"?CASES.filter(function(c){return c.cat===filter}):CASES;
+  list.forEach(function(c){
+    grid.insertAdjacentHTML("beforeend",
+      '<article class="case-card"><div class="case-cover" style="background:'+c.grad+'"><div class="shade"><span class="tag">'+c.cat+'</span></div></div>'+
+      '<div class="body"><h3>'+c.title+'</h3><p>'+c.desc+'</p></div></article>');
+  });
+}
+function renderCaseFilter(){
+  var bar=$("#caseFilter");bar.innerHTML="";
+  CASE_FILTERS.forEach(function(f,i){
+    var b=document.createElement("button");
+    b.textContent=f;b.className="btn btn-ghost"+(i===0?" btn-active":"");
+    b.style.cssText=i===0?"background:var(--ink);color:#fff;border-color:var(--ink)":"";
+    b.addEventListener("click",function(){
+      Array.prototype.forEach.call(bar.children,function(x){x.style.cssText=""});
+      b.style.cssText="background:var(--ink);color:#fff;border-color:var(--ink)";
+      renderCaseGrid(f);
+    });
+    bar.appendChild(b);
+  });
+}
+
+/* ============ 渲染：新闻 ============ */
+function renderNews(){
+  var box=$("#newsList");box.innerHTML="";
+  NEWS.forEach(function(n){
+    box.insertAdjacentHTML("beforeend",
+      '<article class="news-item"><div class="news-date">'+n.date+'</div><div>'+
+      '<h3>'+n.title+'</h3><p>'+n.text+'</p><div class="news-tag">'+n.tag+'</div></div></article>');
+  });
+}
+
+/* ============ 表单校验 ============ */
+function setInvalid(input,on){
+  var field=input.closest(".field");
+  field.classList.toggle("invalid",on);
+  return !on;
+}
+var form=$("#contactForm");
+form.addEventListener("submit",function(ev){
+  ev.preventDefault();
+  var name=$("#f-name"),phone=$("#f-phone"),type=$("#f-type"),msg=$("#f-msg");
+  var ok=true;
+  ok=setInvalid(name,name.value.trim()==="")&&ok;
+  ok=setInvalid(phone,!/^1[3-9]\d{9}$/.test(phone.value.trim()))&&ok;
+  ok=setInvalid(type,type.value==="")&&ok;
+  ok=setInvalid(msg,msg.value.trim().length<5)&&ok;
+  if(ok){toast("需求已收到，我们会在 1 个工作日内与您联系");form.reset();
+    Array.prototype.forEach.call(form.querySelectorAll(".field"),function(f){f.classList.remove("invalid")});
+  }
+});
+[["#f-name"],["#f-phone"],["#f-type"],["#f-msg"]].forEach(function(sel){
+  $(sel[0]).addEventListener("input",function(){this.closest(".field").classList.remove("invalid")});
+});
+
+/* ============ 初始化 ============ */
+renderHomeCases();
+renderPlans();
+renderCaseFilter();
+renderCaseGrid("全部");
+renderNews();
+parseHash();
+onScroll();
+</script>
+</body>
+</html>
